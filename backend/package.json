@@ -4,10 +4,10 @@
   "description": "",
   "main": "src/server.js",
   "type": "module",
- "scripts": {
+"scripts": {
   "dev": "node --watch src/server.js",
   "start": "node src/server.js",
-    "build": "prisma generate"
+  "build": "npx prisma@latest generate"
 },
   "keywords": [],
   "author": "",
