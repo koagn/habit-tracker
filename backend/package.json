@@ -7,7 +7,7 @@
 "scripts": {
   "dev": "node --watch src/server.js",
   "start": "node src/server.js",
-  "build": "npx prisma@latest generate"
+  "build": "npx prisma@7 generate"
 },
   "keywords": [],
   "author": "",
@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "@prisma/config": "^7.10.1",
-    "prisma": "^7.10.1"
+    "prisma": "^7.10.0"
   }
 }

@@ -21,14 +21,14 @@ export * from './enums.js';
  * Model User
  * 
  */
-export type User = Prisma.UserModel
+/** @typedef {Prisma.UserModel} User */
 /**
  * Model Habit
  * 
  */
-export type Habit = Prisma.HabitModel
+/** @typedef {Prisma.HabitModel} Habit */
 /**
  * Model HabitLog
  * 
  */
-export type HabitLog = Prisma.HabitLogModel
+/** @typedef {Prisma.HabitLogModel} HabitLog */
