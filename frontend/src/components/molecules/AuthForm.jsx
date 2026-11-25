@@ -3,25 +3,39 @@ import React, { useState } from 'react';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 
-// 👈 We pass 'isLogin' as a prop so the form knows which mode it is in
-const AuthForm = ({ isLogin, onSubmit, isLoading, error }) => {
+const AuthForm = ({ isLogin, onSubmit, isLoading, error, successMsg }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // 👈 Prevents the page from refreshing
-    onSubmit(email, password); // 👈 Sends the data up to the Page
+    e.preventDefault();
+    onSubmit(email, password);
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', width: '300px' }}>
-      <h2 style={{ textAlign: 'center' }}>{isLogin ? 'Login' : 'Create Account'}</h2>
+    <form onSubmit={handleSubmit} className="flex flex-col w-full">
+      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        {isLogin ? 'Welcome Back' : 'Create an Account'}
+      </h2>
       
-      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
+      {/* 👈 Error Message Box */}
+      {error && (
+        <div className="bg-red-100 text-red-700 p-3 rounded-lg mb-4 text-sm text-center border border-red-200">
+          {error}
+        </div>
+      )}
+
+      {/* 👈 Success Message Box */}
+      {successMsg && (
+        <div className="bg-green-100 text-green-700 p-3 rounded-lg mb-4 text-sm text-center border border-green-200">
+          {successMsg}
+        </div>
+      )}
 
       <Input 
-        label="Email" 
+        label="Email Address" 
         type="email" 
+        placeholder="you@example.com"
         value={email} 
         onChange={(e) => setEmail(e.target.value)} 
         required 
@@ -30,14 +44,18 @@ const AuthForm = ({ isLogin, onSubmit, isLoading, error }) => {
       <Input 
         label="Password" 
         type="password" 
+        placeholder="Create a strong password"
         value={password} 
         onChange={(e) => setPassword(e.target.value)} 
         required 
+        minLength="6" // 👈 Basic validation: password must be at least 6 characters
       />
 
-      <Button type="submit" isLoading={isLoading}>
-        {isLogin ? 'Login' : 'Register'}
-      </Button>
+      <div className="mt-2">
+        <Button type="submit" isLoading={isLoading}>
+          {isLogin ? 'Sign In' : 'Sign Up'}
+        </Button>
+      </div>
     </form>
   );
 };

@@ -12,7 +12,13 @@ const LoginPage = () => {
   const handleLogin = async (email, password) => {
     setIsLoading(true);
     setError('');
-    
+    <AuthForm 
+  isLogin={true} 
+  onSubmit={handleLogin} 
+  isLoading={isLoading} 
+  error={error} 
+  successMsg={''} // 👈 Add this
+/>
     try {
       // 👈 Send POST request to backend
       const response = await api.post('/auth/login', { email, password });

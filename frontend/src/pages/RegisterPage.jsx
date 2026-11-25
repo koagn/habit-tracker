@@ -7,27 +7,60 @@ import api from '../services/api';
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
   const navigate = useNavigate();
 
   const handleRegister = async (email, password) => {
+    // Basic client-side validation
+    if (password.length < 6) {
+      return setError('Password must be at least 6 characters long.');
+    }
+
     setIsLoading(true);
     setError('');
+    setSuccessMsg('');
     
     try {
+      // Send POST request to backend
       const response = await api.post('/auth/register', { email, password });
+      
+      // Save token
       localStorage.setItem('token', response.data.token);
-      navigate('/dashboard');
+      
+      // Show success message
+      setSuccessMsg('Account created successfully! Redirecting...');
+      
+      // Wait 1.5 seconds before redirecting so the user can read the message
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 1500);
+
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed');
-    } finally {
+      setError(err.response?.data?.error || 'Registration failed. Please try again.');
       setIsLoading(false);
     }
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '50px' }}>
-      <AuthForm isLogin={false} onSubmit={handleRegister} isLoading={isLoading} error={error} />
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+    <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
+        <AuthForm 
+          isLogin={false} 
+          onSubmit={handleRegister} 
+          isLoading={isLoading} 
+          error={error} 
+          successMsg={successMsg}
+        />
+        
+        {!successMsg && (
+          <p className="mt-6 text-center text-gray-600">
+            Already have an account?{' '}
+            <Link to="/login" className="text-blue-600 font-semibold hover:underline">
+              Login here
+            </Link>
+          </p>
+        )}
+      </div>
     </div>
   );
 };
