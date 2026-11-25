@@ -4,11 +4,11 @@
   "description": "",
   "main": "src/server.js",
   "type": "module",
-  "scripts": {
-    "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
-    "postinstall": "prisma generate"
-  },
+ "scripts": {
+  "dev": "node --watch src/server.js",
+  "start": "node src/server.js",
+    "build": "prisma generate"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
